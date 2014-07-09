@@ -38,6 +38,7 @@ Implementation:
 
 #include "RecoBTag/PerformanceMeasurements/interface/JetInfoBranches.h"
 #include "RecoBTag/PerformanceMeasurements/interface/EventInfoBranches.h"
+#include "RecoBTag/PerformanceMeasurements/interface/LeptonInfoBranches.h"
 
 #include <TString.h>
 #include <TChain.h>
@@ -105,6 +106,8 @@ class BTagValidation : public edm::EDAnalyzer {
     EventInfoBranches EvtInfo;
     JetInfoBranches   FatJetInfo;
     JetInfoBranches   SubJetInfo;
+    LeptonInfoBranches LeptonInfo;
+    JetInfoBranches   JetInfo; 
 
     TChain* JetTree;
 
@@ -145,6 +148,163 @@ class BTagValidation : public edm::EDAnalyzer {
     TProfile *p1_FatJetPt_TotalTracks;
     TProfile *p1_FatJetPt_SharedTracks;
     TProfile *p1_FatJetPt_SharedTracksRatio;
+
+    TH1F *h1_Mu_pt;
+    TH1F *h1_Mu_phi;
+    TH1F *h1_Mu_eta;
+    TH1F *h1_Mu_mass;
+
+    TH1F *h1_genB_pt;
+    TH1F *h1_genB_phi;
+    TH1F *h1_genB_eta;
+    TH1F *h1_genB_mass;
+
+    TH1F *h1_genMu_pt;
+    TH1F *h1_genMu_phi;
+    TH1F *h1_genMu_eta;
+    TH1F *h1_genMu_mass;
+    TH1F *h1_genMu_mult;
+    TH2F *h2_genMu_vertXY;
+    TH1F *h1_genMu_filt_mult;
+
+    TH1F *h1_genLL_pt;
+    TH1F *h1_genLL_phi;
+    TH1F *h1_genLL_eta;
+    TH1F *h1_genLL_mass;
+
+    TH1F *h1_genHiggs_pt;
+    TH1F *h1_genHiggs_phi;
+    TH1F *h1_genHiggs_eta;
+    TH1F *h1_genHiggs_mass;
+
+    TH1F *h1_genW_pt;
+    TH1F *h1_genW_phi;
+    TH1F *h1_genW_eta;
+    TH1F *h1_genW_mass;
+
+    TH1F *h1_b_HighPt_LowEta;
+    TH1F *h1_b_Leading_dR;
+    TH1F *h1_b_SubLeading_dR;
+
+    TH2F *h2_b_vert_rPhi;
+    TH2F *h2_b_vert_rZ;
+    TH2F *h2_mu_vert_rPhi;
+    TH2F *h2_mu_vert_rZ;
+    TH2F *h2_LL_vert_rPhi;
+    TH2F *h2_LL_vert_rZ;
+    TH2F *h2_LL_eta_vs_eta;
+
+    TH1F *h1_bJet_Mult;
+    TH1F *h1_bJet_LeadingPt;
+
+    TH1F *h1_bJet_pt;
+
+    TH1F *h1_matched_muons;
+
+    TH1F *h1_isFourMuon;
+    TH1F *h1_isFourMatchedMuon;
+
+    TH1F *h1_isMuWEvent;
+    TH1F *h1_matched_WMuons;
+
+    TH1F *h1_MuMothers;
+
+
+    TH1F *h1_matched_WMuonIP3D;
+    TH1F *h1_matched_WMuonIP3Dsig; 
+    TH1F *h1_matched_WMuonIP3Derror;
+    TH1F *h1_matched_WMuonIP2D;
+    TH1F *h1_matched_WMuonIP2Dsig;
+    TH1F *h1_matched_WMuonIP2Derror;
+
+
+    TH1F *h1_matched_HiggsMuonIP3D;
+    TH1F *h1_matched_HiggsMuonIP3Dsig;
+    TH1F *h1_matched_HiggsMuonIP3Derror;
+    TH1F *h1_matched_HiggsMuonIP2D;
+    TH1F *h1_matched_HiggsMuonIP2Dsig;
+    TH1F *h1_matched_HiggsMuonIP2Derror;
+
+    TH1F   *h1_MuW_trkIso;
+    TH1F   *h1_MuW_trackerIsoSumPT;
+    TH1F   *h1_MuW_ecalIso;
+    TH1F   *h1_MuW_hcalIso;
+    TH1F   *h1_MuW_hoIso;
+    TH1F   *h1_MuW_ecalVetoIso;
+    TH1F   *h1_MuW_hcalVetoIso;
+    TH1F   *h1_MuW_pfisor03chargedhadron;
+    TH1F   *h1_MuW_pfisor03chargedparticle;
+    TH1F   *h1_MuW_pfisor03neutralhadron;
+    TH1F   *h1_MuW_pfisor03photon;
+    TH1F   *h1_MuW_pfisor03neutralhadronht;
+    TH1F   *h1_MuW_pfisor03photonht;
+    TH1F   *h1_MuW_pfisor03pu;
+    TH1F   *h1_MuW_pfisor04chargedhadron;
+    TH1F   *h1_MuW_pfisor04chargedparticle;
+    TH1F   *h1_MuW_pfisor04neutralhadron;
+    TH1F   *h1_MuW_pfisor04photon;
+    TH1F   *h1_MuW_pfisor04neutralhadronht;
+    TH1F   *h1_MuW_pfisor04photonht;
+    TH1F   *h1_MuW_pfisor04pu;
+
+    TH1F   *h1_MuHiggs_trkIso;
+    TH1F   *h1_MuHiggs_trackerIsoSumPT;
+    TH1F   *h1_MuHiggs_ecalIso;
+    TH1F   *h1_MuHiggs_hcalIso;
+    TH1F   *h1_MuHiggs_hoIso;
+    TH1F   *h1_MuHiggs_ecalVetoIso;
+    TH1F   *h1_MuHiggs_hcalVetoIso;
+    TH1F   *h1_MuHiggs_pfisor03chargedhadron;
+    TH1F   *h1_MuHiggs_pfisor03chargedparticle;
+    TH1F   *h1_MuHiggs_pfisor03neutralhadron;
+    TH1F   *h1_MuHiggs_pfisor03photon;
+    TH1F   *h1_MuHiggs_pfisor03neutralhadronht;
+    TH1F   *h1_MuHiggs_pfisor03photonht;
+    TH1F   *h1_MuHiggs_pfisor03pu;
+    TH1F   *h1_MuHiggs_pfisor04chargedhadron;
+    TH1F   *h1_MuHiggs_pfisor04chargedparticle;
+    TH1F   *h1_MuHiggs_pfisor04neutralhadron;
+    TH1F   *h1_MuHiggs_pfisor04photon;
+    TH1F   *h1_MuHiggs_pfisor04neutralhadronht;
+    TH1F   *h1_MuHiggs_pfisor04photonht;
+    TH1F   *h1_MuHiggs_pfisor04pu;
+
+    TH1F *h1_GenMuW_pt;
+    TH1F *h1_GenMuW_phi;
+    TH1F *h1_GenMuW_eta;
+    
+    TH1F *h1_GenMuHiggs_pt;
+    TH1F *h1_GenMuHiggs_phi;
+    TH1F *h1_GenMuHiggs_eta;
+    TH1F *h1_testLL_eta;
+    TH1F *h1_testLL_pt;
+
+    TH1F *h1_PatMuW_pt;
+    TH1F *h1_PatMuW_phi;
+    TH1F *h1_PatMuW_eta;
+    
+    TH1F *h1_PatMuHiggs_pt;
+    TH1F *h1_PatMuHiggs_phi;
+    TH1F *h1_PatMuHiggs_eta; 
+    TH1F *h1_PatTestLL_pt;
+    TH1F *h1_PatTestLL_eta;
+
+    TH1F *h1_HiggsMu_vertex;
+    TH2F *h2_LLrZ;
+    TH2F *h2_LLrPhi;
+    TH2F *h2_LLxy;
+
+    TH1F *h1_nLLMu;
+    TH1F *h1_nWMu;
+
+    TH1F *test_Eta;
+
+    TH1F *pv_mult;
+    TH1F *h1_pv_isfake;
+    TH1F *h1_pv_ndf;
+    TH1F *h1_pv_z;
+    TH1F *h1_pv_Rho;
+
 
     // CSVL scale factors
     TF1  *CSVL_SFb_0to2p4;
@@ -278,7 +438,7 @@ BTagValidation::BTagValidation(const edm::ParameterSet& iConfig) :
   double PtBins[] = {20, 30, 40, 50, 60, 70, 80, 100, 120, 160, 210, 260, 320, 400, 500, 600, 800};
 
   // CSVL scale factors
-  CSVL_SFb_0to2p4 = new TF1("CSVL_SFb_0to2p4","0.997942*((1.+(0.00923753*x))/(1.+(0.0096119*x)))", 20.,800.);
+/*  CSVL_SFb_0to2p4 = new TF1("CSVL_SFb_0to2p4","0.997942*((1.+(0.00923753*x))/(1.+(0.0096119*x)))", 20.,800.);
 
   CSVL_SFb_errors = new TH1D("CSVL_SFb_errors", "CSVL_SFb_errors", 16, PtBins);
   CSVL_SFb_errors->SetBinContent( 0,(2*0.033299));
@@ -348,7 +508,7 @@ BTagValidation::BTagValidation(const edm::ParameterSet& iConfig) :
 
   CSVM_SFl_0to0p8_max =   new TF1("CSVM_SFl_0to0p8_max","((1.18638+(0.00314148*x))+(-6.68993e-06*(x*x)))+(3.89288e-09*(x*(x*x)))", 20.,1000.);
   CSVM_SFl_0p8to1p6_max = new TF1("CSVM_SFl_0p8to1p6_max","((1.16624+(0.00151884*x))+(-3.59041e-06*(x*x)))+(2.38681e-09*(x*(x*x)))", 20.,1000.);
-  CSVM_SFl_1p6to2p4_max = new TF1("CSVM_SFl_1p6to2p4_max","((1.15575+(0.000693344*x))+(-3.02661e-06*(x*x)))+(2.39752e-09*(x*(x*x)))", 20.,850.);
+  CSVM_SFl_1p6to2p4_max = new TF1("CSVM_SFl_1p6to2p4_max","((1.15575+(0.000693344*x))+(-3.02661e-06*(x*x)))+(2.39752e-09*(x*(x*x)))", 20.,850.); */
 }
 
 
@@ -373,7 +533,7 @@ void BTagValidation::beginJob() {
   {
     JetTree->Add(inputFiles_.at(i).c_str());
 
-    TFile *f = TFile::Open(inputFiles_.at(i).c_str(),"READ");
+  /*  TFile *f = TFile::Open(inputFiles_.at(i).c_str(),"READ");
 
     TH1D *hEventCountAll    = (TH1D*)f->Get("allEvents/hEventCount");
     TH1D *hEventCountStored = (TH1D*)f->Get("selectedEvents/hEventCount");
@@ -381,27 +541,31 @@ void BTagValidation::beginJob() {
     nEventsAll+=hEventCountAll->GetBinContent(1);
     nEventsStored+=hEventCountStored->GetBinContent(1);
 
-    f->Close();
+    f->Close(); */
   }
 
   //--------------------------------------------------------
   EvtInfo.ReadTree(JetTree);
-  EvtInfo.ReadPatMuonTree(JetTree);
+  EvtInfo.ReadJPTree(JetTree);
+/*  EvtInfo.ReadPatMuonTree(JetTree);
   //--------------------------------------------------------
   FatJetInfo.ReadTree(JetTree,"FatJetInfo");
   FatJetInfo.ReadFatJetSpecificTree(JetTree,"FatJetInfo");
   //--------------------------------------------------------
   SubJetInfo.ReadTree(JetTree,"JetInfo");
-  SubJetInfo.ReadSubJetSpecificTree(JetTree,"JetInfo");
+  SubJetInfo.ReadSubJetSpecificTree(JetTree,"JetInfo"); */  
   //--------------------------------------------------------
-  if(useJetProbaTree_)
+  LeptonInfo.ReadTree(JetTree);
+  JetInfo.ReadTree(JetTree);
+  //--------------------------------------------------------
+/*  if(useJetProbaTree_)
   {
     EvtInfo.ReadJPTree(JetTree);
     FatJetInfo.ReadJPTree(JetTree,"FatJetInfo");
-    SubJetInfo.ReadJPTree(JetTree,"JetInfo");
-  }
+    SubJetInfo.ReadJPTree(JetTree,"JetInfo"); 
+  } */
 
-  double PtMax = 3000.;
+/*  double PtMax = 3000.;
 
   h1_CutFlow        = fs->make<TH1D>("h1_CutFlow",       "h1_CutFlow",     4, -0.5, 3.5);
   h1_CutFlow->Sumw2();
@@ -426,8 +590,8 @@ void BTagValidation::beginJob() {
   h2_FatJet_Subjet1CSV_Subjet2CSV_dRsubjets0p2to0p4 = fs->make<TH2D>("h2_FatJet_Subjet1CSV_Subjet2CSV_dRsubjets0p2to0p4", "Subjet_{1} CSV vs. Subjet_{2} CSV for 0.2#leq#DeltaR(subjets)<0.4",  100,0,1, 100,0,1);
   h2_FatJet_Subjet1CSV_Subjet2CSV_dRsubjets0p4to0p6 = fs->make<TH2D>("h2_FatJet_Subjet1CSV_Subjet2CSV_dRsubjets0p4to0p6", "Subjet_{1} CSV vs. Subjet_{2} CSV for 0.4#leq#DeltaR(subjets)<0.6",  100,0,1, 100,0,1);
   h2_FatJet_Subjet1CSV_Subjet2CSV_dRsubjets0p6to0p8 = fs->make<TH2D>("h2_FatJet_Subjet1CSV_Subjet2CSV_dRsubjets0p6to0p8", "Subjet_{1} CSV vs. Subjet_{2} CSV for 0.6#leq#DeltaR(subjets)<0.8",  100,0,1, 100,0,1);
-
-  if( processSubJets_ )
+*/
+/*  if( processSubJets_ )
   {
     h1_nSubJet        = fs->make<TH1D>("h1_nSubJet",       "h1_nSubJet",     100,0,100);
     h1_subjet_pt      = fs->make<TH1D>("h1_subjet_pt",     "h1_subjet_pt",   PtMax/10,0,PtMax);
@@ -439,10 +603,10 @@ void BTagValidation::beginJob() {
 
   p1_FatJetPt_TotalTracks = fs->make<TProfile>("p1_FatJetPt_TotalTracks",";p_{T} [GeV];",20,0,1000);
   p1_FatJetPt_SharedTracks = fs->make<TProfile>("p1_FatJetPt_SharedTracks",";p_{T} [GeV];",20,0,1000);
-  p1_FatJetPt_SharedTracksRatio = fs->make<TProfile>("p1_FatJetPt_SharedTracksRatio",";p_{T} [GeV];",20,0,1000);
+  p1_FatJetPt_SharedTracksRatio = fs->make<TProfile>("p1_FatJetPt_SharedTracksRatio",";p_{T} [GeV];",20,0,1000); */
 
   //// Create jet histograms
-  AddHisto("FatJet_prunedMass"       ,"pruned mass of all fat jets"                          ,200       ,0      ,400);
+/*  AddHisto("FatJet_prunedMass"       ,"pruned mass of all fat jets"                          ,200       ,0      ,400);
   AddHisto("FatJet_massDrop"         ,"mass drop"                                            ,100       ,0      ,1);
   AddHisto("FatJet_subjet_dR"        ,"#DeltaR(subjet_{1},subjet_{2}) in #eta-#phi plane"    ,100       ,0      ,1);
   AddHisto("FatJet_subjet_dyphi"     ,"#DeltaR(subjet_{1},subjet_{2}) in y-#phi plane"       ,100       ,0      ,1);
@@ -450,14 +614,159 @@ void BTagValidation::beginJob() {
   AddHisto2D("FatJet_prunedMass_nsubjettiness", "Nsubjettiness vs. pruned mass"              ,200       ,0      ,400      ,50        ,0      ,1);
   AddHisto2D("FatJet_pt_prunedMass",  "pruned mass vs. p_{T}"                                ,PtMax/10  ,0      ,PtMax    ,200       ,0      ,400);
   //// Common histograms for both fat jets and subjets
-  createJetHistos("FatJet");
-  if( processSubJets_ ) createJetHistos("SubJet");
+  createJetHistos("FatJet"); */
+//  if( processSubJets_ ) createJetHistos("SubJet");
+  
+  h1_genB_pt   = fs->make<TH1F>("h1_genB_pt",   "h1_genB_pt", 100, 0, 400);
+  h1_genB_phi   = fs->make<TH1F>("h1_genB_phi",   "h1_genB_phi", 100, -3.14159, 3.14159);
+  h1_genB_eta   = fs->make<TH1F>("h1_genB_eta",   "h1_genB_eta", 100, -5, 5);
 
+  h1_genMu_pt   = fs->make<TH1F>("h1_genMu_pt",   "h1_genMu_pt", 100, 0, 400);
+  h1_genMu_phi   = fs->make<TH1F>("h1_genMu_phi",   "h1_genMu_phi", 100, -3.14159, 3.14159);
+  h1_genMu_eta   = fs->make<TH1F>("h1_genMu_eta",   "h1_genMu_eta", 100, -5, 5);
+  h1_genMu_mult   = fs->make<TH1F>("h1_genMu_mult",   "h1_genMu_mult", 10, 0, 10);
+  h1_genMu_filt_mult   = fs->make<TH1F>("h1_genMu_filt_mult",   "h1_genMu_filt_mult", 10, 0, 10);
+
+  h1_genHiggs_pt   = fs->make<TH1F>("h1_genHiggs_pt",   "h1_genHiggs_pt", 100, 0, 400);
+  h1_genHiggs_phi   = fs->make<TH1F>("h1_genHiggs_phi",   "h1_genHiggs_phi", 100, -3.14159, 3.14159);
+  h1_genHiggs_eta   = fs->make<TH1F>("h1_genHiggs_eta",   "h1_genHiggs_eta", 100, -5, 5);
+
+  h1_genLL_pt   = fs->make<TH1F>("h1_genLL_pt",   "h1_genLL_pt", 100, 0, 400);
+  h1_genLL_phi   = fs->make<TH1F>("h1_genLL_phi",   "h1_genLL_phi", 100, -3.14159, 3.14159);
+  h1_genLL_eta   = fs->make<TH1F>("h1_genLL_eta",   "h1_genLL_eta", 100, -5, 5);
+
+  h1_genW_pt   = fs->make<TH1F>("h1_genW_pt",   "h1_genW_pt", 100, 0, 400);
+  h1_genW_phi   = fs->make<TH1F>("h1_genW_phi",   "h1_genW_phi", 100, -3.14159, 3.14159);
+  h1_genW_eta   = fs->make<TH1F>("h1_genW_eta",   "h1_genW_eta", 100, -5, 5);
+
+  h1_b_Leading_dR   = fs->make<TH1F>("h1_b_Leading_dR",   "h1_b_Leading_dR", 100, 0, 400);
+  h1_b_SubLeading_dR   = fs->make<TH1F>("h1_b_SubLeading_dR",   "h1_b_SubLeading_dR", 100, 0, 200);
+  h1_b_HighPt_LowEta   = fs->make<TH1F>("h1_b_HighPt_LowEta",   "h1_b_HighPt_LowEta", 6, 0, 6);
+
+  h2_LL_eta_vs_eta   = fs->make<TH2F>("h2_LL_eta_vs_eta",   "h2_LL_eta_vs_eta", 100, -6, 6, 100, -6, 6);
+  h2_LL_vert_rZ   = fs->make<TH2F>("h2_LL_vert_rZ",   "h2_LL_vert_rZ", 100, 0, 1, 100, -20, 20);
+  h2_LL_vert_rPhi   = fs->make<TH2F>("h2_LL_vert_rPhi",   "h2_LL_vert_rPhi", 100, 0, 1, 100, -3.14159, 3.14159);
+  h2_b_vert_rZ   = fs->make<TH2F>("h2_b_vert_rZ",   "h2_b_vert_rZ", 100, 0, 1, 100, -20, 20);
+  h2_b_vert_rPhi   = fs->make<TH2F>("h2_b_vert_rPhi",   "h2_b_vert_rPhi", 100, 0, 1, 100, -3.14159, 3.14159);
+  h2_mu_vert_rZ   = fs->make<TH2F>("h2_mu_vert_rZ",   "h2_mu_vert_rZ", 100, 0, 10, 100, -30, 30);
+  h2_mu_vert_rPhi   = fs->make<TH2F>("h2_mu_vert_rPhi",   "h2_mu_vert_rPhi", 100, 0, 1, 100, -3.14159, 3.14159);
+
+  h1_bJet_Mult   = fs->make<TH1F>("h1_bJet_Mult",   "h1_bJet_Mult", 6, 0, 6);  
+  h1_bJet_LeadingPt   = fs->make<TH1F>("h1_bJet_LeadingPt",   "h1_bJet_LeadingPt", 100, 0, 400);
+  h1_bJet_pt   = fs->make<TH1F>("h1_bJet_pt",   "h1_bJet_pt", 100, 0, 400);
+
+  h2_genMu_vertXY  = fs->make<TH2F>("h2_genMu_vertXY",   "h2_genMu_vertXY", 100, -6, 6, 100, -6, 6);
+
+  h1_matched_muons   = fs->make<TH1F>("h1_matched_muons",   "h1_matched_muons", 6, 0, 6); 
+
+  h1_isFourMuon   = fs->make<TH1F>("h1_isFourMuon",   "h1_isFourMuon", 6, 0, 6); 
+  h1_isFourMatchedMuon   = fs->make<TH1F>("h1_isFourMatchedMuon",   "h1_isFourMatchedMuon", 6, 0, 6); 
+
+  h1_isMuWEvent   = fs->make<TH1F>("h1_isMuWEvent",   "h1_isMuWEvent", 6, 0, 6); 
+  h1_matched_WMuons   = fs->make<TH1F>("h1_matched_WMuons",   "h1_matched_WMuons", 6, 0, 6); 
+
+  h1_matched_WMuonIP3D   = fs->make<TH1F>("h1_matched_WMuonIP3D",   "h1_matched_WMuonIP3D", 100, -0.05, 0.05);
+  h1_matched_WMuonIP3Dsig   = fs->make<TH1F>("h1_matched_WMuonIP3Dsig",   "h1_matched_WMuonIP3Dsig", 100, -3, 3);
+  h1_matched_WMuonIP3Derror   = fs->make<TH1F>("h1_matched_WMuonIP3Derror",   "h1_matched_WMuonIP3Derror", 100, 0, 0.05);
+  h1_matched_WMuonIP2D   = fs->make<TH1F>("h1_matched_WMuonIP2D",   "h1_matched_WMuonIP2D", 100, -0.02, 0.02);
+  h1_matched_WMuonIP2Dsig   = fs->make<TH1F>("h1_matched_WMuonIP2Dsig",   "h1_matched_WMuonIP2Dsig", 100, -3, 3); 
+  h1_matched_WMuonIP2Derror   = fs->make<TH1F>("h1_matched_WMuonIP2Derror",   "h1_matched_WMuonIP2Derror", 100, 0, 0.02);
+
+  h1_matched_HiggsMuonIP3D   = fs->make<TH1F>("h1_matched_HiggsMuonIP3D",   "h1_matched_HiggsMuonIP3D", 100, -0.05, 0.05); 
+  h1_matched_HiggsMuonIP3Dsig   = fs->make<TH1F>("h1_matched_HiggsMuonIP3Dsig",   "h1_matched_HiggsMuonIP3Dsig", 100, -5, 5); 
+  h1_matched_HiggsMuonIP3Derror   = fs->make<TH1F>("h1_matched_HiggsMuonIP3Derror",   "h1_matched_HiggsMuonIP3Derror", 100, 0, 0.05); 
+  h1_matched_HiggsMuonIP2D   = fs->make<TH1F>("h1_matched_HiggsMuonIP2D",   "h1_matched_HiggsMuonIP2D", 100, -0.02, 0.02); 
+  h1_matched_HiggsMuonIP2Dsig   = fs->make<TH1F>("h1_matched_HiggsMuonIP2Dsig",   "h1_matched_HiggsMuonIP2Dsig", 100, -5, 5); 
+  h1_matched_HiggsMuonIP2Derror   = fs->make<TH1F>("h1_matched_HiggsMuonIP2Derror",   "h1_matched_HiggsMuonIP2Derror", 100, 0, 0.02); 
+
+
+  h1_MuMothers   = fs->make<TH1F>("h1_MuMothers",   "h1_MuMothers", 30, 0, 30); 
+
+
+  h1_MuW_pfisor04pu   = fs->make<TH1F>("h1_MuW_pfisor04pu",   "h1_MuW_pfisor04pu", 100, 0, 2); 
+  h1_MuW_pfisor04photonht   = fs->make<TH1F>("h1_MuW_pfisor04photonht",   "h1_MuW_pfisor04photonht", 100, 0, 2); 
+  h1_MuW_pfisor04neutralhadronht   = fs->make<TH1F>("h1_MuW_pfisor04neutralhadronht",   "h1_MuW_pfisor04neutralhadronht", 100, 0, 2); 
+  h1_MuW_pfisor04photon   = fs->make<TH1F>("h1_MuW_pfisor04photon",   "h1_MuW_pfisor04photon", 100, 0, 2); 
+  h1_MuW_pfisor04neutralhadron   = fs->make<TH1F>("h1_MuW_pfisor04neutralhadron",   "h1_MuW_pfisor04neutralhadron", 100, 0, 2); 
+  h1_MuW_pfisor04chargedparticle   = fs->make<TH1F>("h1_MuW_pfisor04chargedparticle",   "h1_MuW_pfisor04chargedparticle", 100, 0, 2); 
+  h1_MuW_pfisor04chargedhadron   = fs->make<TH1F>("h1_MuW_pfisor04chargedhadron",   "h1_MuW_pfisor04chargedhadron", 100, 0, 2); 
+  h1_MuW_pfisor03pu   = fs->make<TH1F>("h1_MuW_pfisor03pu",   "h1_MuW_pfisor03pu", 100, 0, 2); 
+  h1_MuW_pfisor03photonht   = fs->make<TH1F>("h1_MuW_pfisor03photonht",   "h1_MuW_pfisor03photonht", 100, 0, 2); 
+  h1_MuW_pfisor03neutralhadronht   = fs->make<TH1F>("h1_MuW_pfisor03neutralhadronht",   "h1_MuW_pfisor03neutralhadronht", 100, 0, 2); 
+  h1_MuW_pfisor03photon   = fs->make<TH1F>("h1_MuW_pfisor03photon",   "h1_MuW_pfisor03photon", 100, 0, 2); 
+  h1_MuW_pfisor03neutralhadron   = fs->make<TH1F>("h1_MuW_pfisor03neutralhadron",   "h1_MuW_pfisor03neutralhadron", 100, 0, 2); 
+  h1_MuW_pfisor03chargedparticle   = fs->make<TH1F>("h1_MuW_pfisor03chargedparticle",   "h1_MuW_pfisor03chargedparticle", 100, 0, 2); 
+  h1_MuW_pfisor03chargedhadron   = fs->make<TH1F>("h1_MuW_pfisor03chargedhadron",   "h1_MuW_pfisor03chargedhadron", 100, 0, 2); 
+  h1_MuW_hoIso   = fs->make<TH1F>("h1_MuW_hoIso",   "h1_MuW_hoIso", 100, 0, 2); 
+  h1_MuW_hcalIso   = fs->make<TH1F>("h1_MuW_hcalIso",   "h1_MuW_hcalIso", 100, 0, 2); 
+  h1_MuW_ecalIso   = fs->make<TH1F>("h1_MuW_ecalIso",   "h1_MuW_ecalIso", 100, 0, 2); 
+  h1_MuW_trkIso   = fs->make<TH1F>("h1_MuW_trkIso",   "h1_MuW_trkIso", 100, 0, 2); 
+  h1_MuW_hcalVetoIso   = fs->make<TH1F>("h1_MuW_hcalVetoIso",   "h1_MuW_hcalVetoIso", 100, 0, 2); 
+  h1_MuW_ecalVetoIso   = fs->make<TH1F>("h1_MuW_ecalVetoIso",   "h1_MuW_ecalVetoIso", 100, 0, 2); 
+  h1_MuW_trackerIsoSumPT   = fs->make<TH1F>("h1_MuW_trackerIsoSumPT",   "h1_MuW_trackerIsoSumPT", 100, 0, 2); 
+
+  h1_MuHiggs_pfisor04pu   = fs->make<TH1F>("h1_MuHiggs_pfisor04pu",   "h1_MuHiggs_pfisor04pu", 100, 0, 2); 
+  h1_MuHiggs_pfisor04photonht   = fs->make<TH1F>("h1_MuHiggs_pfisor04photonht",   "h1_MuHiggs_pfisor04photonht", 100, 0, 2); 
+  h1_MuHiggs_pfisor04neutralhadronht   = fs->make<TH1F>("h1_MuHiggs_pfisor04neutralhadronht",   "h1_MuHiggs_pfisor04neutralhadronht", 100, 0, 2); 
+  h1_MuHiggs_pfisor04photon   = fs->make<TH1F>("h1_MuHiggs_pfisor04photon",   "h1_MuHiggs_pfisor04photon", 100, 0, 2); 
+  h1_MuHiggs_pfisor04neutralhadron   = fs->make<TH1F>("h1_MuHiggs_pfisor04neutralhadron",   "h1_MuHiggs_pfisor04neutralhadron", 100, 0, 2); 
+  h1_MuHiggs_pfisor04chargedparticle   = fs->make<TH1F>("h1_MuHiggs_pfisor04chargedparticle",   "h1_MuHiggs_pfisor04chargedparticle", 100, 0, 20); 
+  h1_MuHiggs_pfisor04chargedhadron   = fs->make<TH1F>("h1_MuHiggs_pfisor04chargedhadron",   "h1_MuHiggs_pfisor04chargedhadron", 100, 0, 2); 
+  h1_MuHiggs_pfisor03pu   = fs->make<TH1F>("h1_MuHiggs_pfisor03pu",   "h1_MuHiggs_pfisor03pu", 100, 0, 2); 
+  h1_MuHiggs_pfisor03photonht   = fs->make<TH1F>("h1_MuHiggs_pfisor03photonht",   "h1_MuHiggs_pfisor03photonht", 100, 0, 2); 
+  h1_MuHiggs_pfisor03neutralhadronht   = fs->make<TH1F>("h1_MuHiggs_pfisor03neutralhadronht",   "h1_MuHiggs_pfisor03neutralhadronht", 100, 0, 2); 
+  h1_MuHiggs_pfisor03photon   = fs->make<TH1F>("h1_MuHiggs_pfisor03photon",   "h1_MuHiggs_pfisor03photon", 100, 0, 2); 
+  h1_MuHiggs_pfisor03neutralhadron   = fs->make<TH1F>("h1_MuHiggs_pfisor03neutralhadron",   "h1_MuHiggs_pfisor03neutralhadron", 100, 0, 2); 
+  h1_MuHiggs_pfisor03chargedparticle   = fs->make<TH1F>("h1_MuHiggs_pfisor03chargedparticle",   "h1_MuHiggs_pfisor03chargedparticle", 100, 0, 20); 
+  h1_MuHiggs_pfisor03chargedhadron   = fs->make<TH1F>("h1_MuHiggs_pfisor03chargedhadron",   "h1_MuHiggs_pfisor03chargedhadron", 100, 0, 2); 
+  h1_MuHiggs_hoIso   = fs->make<TH1F>("h1_MuHiggs_hoIso",   "h1_MuHiggs_hoIso", 100, 0, 2); 
+  h1_MuHiggs_hcalIso   = fs->make<TH1F>("h1_MuHiggs_hcalIso",   "h1_MuHiggs_hcalIso", 100, 0, 2); 
+  h1_MuHiggs_ecalIso   = fs->make<TH1F>("h1_MuHiggs_ecalIso",   "h1_MuHiggs_ecalIso", 100, 0, 2); 
+  h1_MuHiggs_trkIso   = fs->make<TH1F>("h1_MuHiggs_trkIso",   "h1_MuHiggs_trkIso", 100, 0, 10); 
+  h1_MuHiggs_hcalVetoIso   = fs->make<TH1F>("h1_MuHiggs_hcalVetoIso",   "h1_MuHiggs_hcalVetoIso", 100, 0, 2); 
+  h1_MuHiggs_ecalVetoIso   = fs->make<TH1F>("h1_MuHiggs_ecalVetoIso",   "h1_MuHiggs_ecalVetoIso", 100, 0, 2); 
+  h1_MuHiggs_trackerIsoSumPT   = fs->make<TH1F>("h1_MuHiggs_trackerIsoSumPT",   "h1_MuHiggs_trackerIsoSumPT", 100, 0, 5); 
+
+  h1_GenMuW_pt   = fs->make<TH1F>("h1_GenMuW_pt",   "h1_GenMuW_pt", 100, 0, 400);
+  h1_GenMuW_phi   = fs->make<TH1F>("h1_GenMuW_phi",   "h1_GenMuW_phi", 100, -3.14159, 3.14159);
+  h1_GenMuW_eta   = fs->make<TH1F>("h1_GenMuW_eta",   "h1_GenMuW_eta", 100, -5, 5);
+
+  h1_GenMuHiggs_pt   = fs->make<TH1F>("h1_GenMuHiggs_pt",   "h1_GenMuHiggs_pt", 100, 0, 400);
+  h1_GenMuHiggs_phi   = fs->make<TH1F>("h1_GenMuHiggs_phi",   "h1_GenMuHiggs_phi", 100, -3.14159, 3.14159);
+  h1_GenMuHiggs_eta   = fs->make<TH1F>("h1_GenMuHiggs_eta",   "h1_GenMuHiggs_eta", 100, -5, 5);
+  h1_testLL_eta   = fs->make<TH1F>("h1_testLL_eta",   "h1_testLL_eta", 100, -5, 5);
+  h1_testLL_pt   = fs->make<TH1F>("h1_testLL_pt",   "h1_testLL_pt", 100, 0, 400);
+
+  h1_PatMuW_pt   = fs->make<TH1F>("h1_PatMuW_pt",   "h1_PatMuW_pt", 100, 0, 400);
+  h1_PatMuW_phi   = fs->make<TH1F>("h1_PatMuW_phi",   "h1_PatMuW_phi", 100, -3.14159, 3.14159);
+  h1_PatMuW_eta   = fs->make<TH1F>("h1_PatMuW_eta",   "h1_PatMuW_eta", 100, -5, 5);
+
+  h1_PatMuHiggs_pt   = fs->make<TH1F>("h1_PatMuHiggs_pt",   "h1_PatMuHiggs_pt", 100, 0, 400);
+  h1_PatMuHiggs_phi   = fs->make<TH1F>("h1_PatMuHiggs_phi",   "h1_PatMuHiggs_phi", 100, -3.14159, 3.14159);
+  h1_PatMuHiggs_eta   = fs->make<TH1F>("h1_PatMuHiggs_eta",   "h1_PatMuHiggs_eta", 100, -5, 5); 
+  h1_PatTestLL_pt   = fs->make<TH1F>("h1_PatTestLL_pt",   "h1_PatTestLL_pt", 100, 0, 400);
+  h1_PatTestLL_eta   = fs->make<TH1F>("h1_PatTestLL_eta",   "h1_PatTestLL_eta", 100, -5, 5); 
+
+  h1_HiggsMu_vertex = fs->make<TH1F>("h2_HiggsMu_vertex", "h2_HiggsMu_vertex", 150, 0, 150);
+  h2_LLrZ   = fs->make<TH2F>("h2_LLrZ",   "h2_LLrZ", 150, 0, 150, 150, -150, 150);
+  h2_LLrPhi   = fs->make<TH2F>("h2_LLrPhi",   "h2_LLrPhi", 150, 0, 150, 100, -3.14159, 3.14159);
+  h2_LLxy   = fs->make<TH2F>("h2_LLxy",   "h2_LLxy", 300, -150, 150, 300, -150, 150);
+
+  h1_nLLMu = fs->make<TH1F>("h1_nLLMu", "h1_nLLMu", 6, 0, 6);
+  h1_nWMu = fs->make<TH1F>("h1_nWMu", "h1_nWMu", 6, 0, 6);
+
+  test_Eta   = fs->make<TH1F>("test_Eta",   "test_Eta", 100, -5, 5);
+
+  pv_mult = fs->make<TH1F>("pv_mult", "pv_mult", 6, 0, 6);
+  h1_pv_isfake   = fs->make<TH1F>("h1_pv_isfake",   "h1_pv_isfake", 3, 0, 3);
+  h1_pv_ndf   = fs->make<TH1F>("h1_pv_ndf",   "h1_pv_ndf", 10, 0, 10);
+  h1_pv_z   = fs->make<TH1F>("h1_pv_z",   "h1_pv_z", 100, -50, 50);
+  h1_pv_Rho   = fs->make<TH1F>("h1_pv_Rho",   "h1_pv_Rho", 50, 0, 50);    
 }
 
 void BTagValidation::createJetHistos(const TString& histoTag) {
 
-  double PtMax = 3000.;
+/*  double PtMax = 3000.;
   double pi=TMath::Pi();
 
   AddHisto(histoTag+"_pt_all"           ,"p_{T} of all jets"             ,PtMax/10  ,0      ,PtMax );
@@ -579,7 +888,8 @@ void BTagValidation::createJetHistos(const TString& histoTag) {
   AddHisto2D(histoTag+"_sv_deltar_sum_jet_vs_jetpt","SVvtxSumJetDeltaR vs jet pt",      PtMax/20,0,PtMax, 50,0.,0.5);
   AddHisto2D(histoTag+"_sv_deltar_sum_dir_vs_jetpt","SVvtxSumVtxDirDeltaR vs jet pt",   PtMax/20,0,PtMax, 50,0.,0.5);
   AddHisto2D(histoTag+"_muon_ptrel_vs_jetpt","Muon_p{T}^{rel} vs jet pt",               PtMax/20,0,PtMax,50,0,5);
-  AddHisto2D(histoTag+"_muon_DeltaR_vs_jetpt","Muon1 DeltaR vs jet pt",                 PtMax/20,0,PtMax,50,0,0.5);
+  AddHisto2D(histoTag+"_muon_DeltaR_vs_jetpt","Muon1 DeltaR vs jet pt",                 PtMax/20,0,PtMax,50,0,0.5); */
+
 }
 
 // ------------ method called for each event  ------------
@@ -590,13 +900,43 @@ void BTagValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
   if(JetTree == 0) return;
 
   Long64_t nEntries = JetTree->GetEntries();
+  std::cout << "nentries=" << nEntries << std::endl;
   if(maxEvents_>=0) nEntries = maxEvents_;
 
+  int ID;
+  int STATUS;
+  int FLAVOR;
+  
   //---------------------------- Start event loop ---------------------------------------//
   for(Long64_t iEntry = 0; iEntry < nEntries; ++iEntry)
   {
     JetTree->GetEntry(iEntry);
-    if((iEntry%reportEvery_) == 0) edm::LogInfo("EventNumber") << "Processing event " << iEntry << " of " << nEntries;
+
+    float LeadingMuPt = 0;
+    int LeadingMuIdx = -1;
+    float LeadingLLPt = 0;
+    int LeadingLLIdx = -1;
+    float LeadingBPt = 0;
+    int LeadingBIdx = -1;
+    int nBMult = 0;
+    int nBJetMult = 0;
+    float LeadingBJetPt = 0;
+    int LeadingBJetIdx = -1;
+    int nGenMuMult = 0;
+    int nGoodPV = 0;
+
+    bool isLLEvent = false; 
+    bool isMuWEvent = false;
+    bool hptMuon = false;
+    bool hptPatMuon = false;
+    
+    std::vector< TLorentzVector > vGenMuHiggs;
+    std::vector< TLorentzVector > vGenMuW;
+    std::vector< TLorentzVector > vPatMu;
+    std::vector< int > vPatMuTightIdx;
+
+
+  /*  if((iEntry%reportEvery_) == 0) edm::LogInfo("EventNumber") << "Processing event " << iEntry << " of " << nEntries;
 
     if(EvtInfo.Run < 0) isData = false;
 
@@ -632,10 +972,10 @@ void BTagValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
     int nFatJet = 0;
     int nSubJet = 0;
 
-    double fatJetCone(0.8);
+    double fatJetCone(0.8); */
 
     //---------------------------- Start fat jet loop ---------------------------------------//
-    for(int iJet = 0; iJet < FatJetInfo.nJet; ++iJet)
+/*    for(int iJet = 0; iJet < FatJetInfo.nJet; ++iJet)
     {
       if ( FatJetInfo.Jet_pt[iJet] < fatJetPtMin_ ||
            FatJetInfo.Jet_pt[iJet] > fatJetPtMax_ )                  continue; //// apply jet pT cut
@@ -808,6 +1148,8 @@ void BTagValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
       }
       if ( nMatchedBHadrons > 1 ) isGluonSplit = true ;
 
+      
+
       //// fill fat jet histograms
       h1_fatjet_pt->Fill(FatJetInfo.Jet_pt[iJet],wtPU*wtFatJet);
       FillHisto("FatJet_prunedMass"                 ,FatJetInfo.Jet_flavour[iJet] ,isGluonSplit ,FatJetInfo.Jet_massPruned[iJet]                     ,wtPU*wtFatJet);
@@ -831,6 +1173,9 @@ void BTagValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
       }
 
       fillJetHistos(FatJetInfo, iJet, isGluonSplit, "FatJet", nmu, nselmuon, idxFirstMuon, wtPU*wtFatJet);
+
+      //// MC Truth Info
+      
 
       //// ------- start process subjets --------------
       if( processSubJets_ )
@@ -910,16 +1255,369 @@ void BTagValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
       } //// ------- end process subjets --------------
     }
     //----------------------------- End fat jet loop ----------------------------------------//
+*/
+
+    for (int iPV = 0; iPV < EvtInfo.nPV; ++iPV){
+      float pvRho = sqrt(EvtInfo.PV_x[iPV]*EvtInfo.PV_x[iPV] + EvtInfo.PV_y[iPV]*EvtInfo.PV_y[iPV]);
+      h1_pv_isfake->Fill(EvtInfo.PV_isfake[iPV]);
+      h1_pv_ndf->Fill(EvtInfo.PV_ndf[iPV]);
+      h1_pv_z->Fill(EvtInfo.PV_z[iPV]);
+      h1_pv_Rho->Fill(pvRho);
+      if (!EvtInfo.PV_isfake[iPV] && EvtInfo.PV_ndf[iPV]>4 && fabs(EvtInfo.PV_z[iPV])<= 24 && pvRho<=2) nGoodPV++;
+    }
+
+    pv_mult->Fill(nGoodPV);
+
+    for(int iJet = 0; iJet < JetInfo.nJet ; ++iJet){
+      
+      FLAVOR = JetInfo.Jet_flavour[iJet];
+
+      if (FLAVOR == 4){
+        ++nBJetMult;
+        if (JetInfo.Jet_pt[iJet]>LeadingBJetPt) {
+          LeadingBJetPt = JetInfo.Jet_pt[iJet];
+          LeadingBJetIdx = iJet;
+        }
+        h1_bJet_pt->Fill(JetInfo.Jet_pt[iJet]);
+      }
+    }
+
+
+
+    for(int iGenPart = 0; iGenPart < LeptonInfo.nGenPart; ++iGenPart){
+
+      ID = abs(LeptonInfo.GenPart_pdgid[iGenPart]);
+      STATUS = LeptonInfo.GenPart_status[iGenPart];
+      TLorentzVector tmpV;
+
+      if (ID == 13 && STATUS == 1){
+        h1_genMu_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+        h1_genMu_phi->Fill(LeptonInfo.GenPart_phi[iGenPart]);
+        h1_genMu_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+        int testIdx = iGenPart;
+        
+        while (abs(LeptonInfo.GenPart_pdgid[LeptonInfo.GenPart_mother[testIdx]])==13){
+          testIdx = LeptonInfo.GenPart_mother[testIdx];
+          if (abs(LeptonInfo.GenPart_pdgid[LeptonInfo.GenPart_mother[testIdx]])==24) {
+            h1_nWMu->Fill(1);
+            if (LeptonInfo.GenPart_pt[iGenPart]>10 && fabs(LeptonInfo.GenPart_eta[iGenPart])<2.1) {
+              tmpV.SetPtEtaPhiM(LeptonInfo.GenPart_pt[iGenPart], LeptonInfo.GenPart_eta[iGenPart], LeptonInfo.GenPart_phi[iGenPart], LeptonInfo.GenPart_mass[iGenPart]);
+              vGenMuW.push_back(tmpV);
+              h1_isMuWEvent->Fill(1);
+              isMuWEvent = true;
+              h1_GenMuW_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+              h1_GenMuW_phi->Fill(LeptonInfo.GenPart_phi[iGenPart]);
+              h1_GenMuW_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+            }
+          }
+        } 
+
+          
+        if (LeptonInfo.GenPart_pt[iGenPart]>LeadingMuPt) {
+          LeadingMuPt = LeptonInfo.GenPart_pt[iGenPart];
+          LeadingMuIdx = iGenPart;
+        }
+        ++nGenMuMult;
+        h2_genMu_vertXY->Fill(LeptonInfo.GenPart_vertX[iGenPart], LeptonInfo.GenPart_vertY[iGenPart]);
+
+        if (LeptonInfo.GenPart_pdgid[LeptonInfo.GenPart_mother[iGenPart]]==6001113) {
+          h1_nLLMu->Fill(1);
+          float MuLLr=sqrt((LeptonInfo.GenPart_vertX[iGenPart]*LeptonInfo.GenPart_vertX[iGenPart])+(LeptonInfo.GenPart_vertY[iGenPart]*LeptonInfo.GenPart_vertY[iGenPart]));
+          float MuLLphi = atan2(LeptonInfo.GenPart_vertX[iGenPart], LeptonInfo.GenPart_vertY[iGenPart]);
+          h1_HiggsMu_vertex->Fill(sqrt((LeptonInfo.GenPart_vertX[iGenPart]*LeptonInfo.GenPart_vertX[iGenPart])+(LeptonInfo.GenPart_vertY[iGenPart]*LeptonInfo.GenPart_vertY[iGenPart])));
+          h2_LLrZ->Fill(MuLLr, LeptonInfo.GenPart_vertZ[iGenPart]);
+          h2_LLrPhi->Fill(MuLLr, MuLLphi);
+          tmpV.SetPtEtaPhiM(LeptonInfo.GenPart_pt[iGenPart], LeptonInfo.GenPart_eta[iGenPart], LeptonInfo.GenPart_phi[iGenPart], LeptonInfo.GenPart_mass[iGenPart]);
+          vGenMuHiggs.push_back(tmpV);
+          h2_LLxy->Fill(LeptonInfo.GenPart_vertX[iGenPart],LeptonInfo.GenPart_vertY[iGenPart]);  
+          isLLEvent = true;  
+
+          // *************n-1 Plots***********
+          if (fabs(LeptonInfo.GenPart_eta[iGenPart])<2.4) h1_testLL_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+          if (LeptonInfo.GenPart_pt[iGenPart]>10) h1_testLL_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+
+        }
+
+       /* if ((fabs(LeptonInfo.GenPart_eta[iGenPart])<2.4) && (LeptonInfo.GenPart_pdgid[LeptonInfo.GenPart_mother[iGenPart]]==6001113)) {
+          tmpV.SetPtEtaPhiM(LeptonInfo.GenPart_pt[iGenPart], LeptonInfo.GenPart_eta[iGenPart], LeptonInfo.GenPart_phi[iGenPart], LeptonInfo.GenPart_mass[iGenPart]);
+          vGenMuHiggs.push_back(tmpV);
+          h2_LLxy->Fill(LeptonInfo.GenPart_vertX[iGenPart],LeptonInfo.GenPart_vertY[iGenPart]);
+          if (LeptonInfo.GenPart_pt[iGenPart]>=20) hptMuon = true;
+          if (vGenMuHiggs.size() == 4 && hptMuon) {
+            isFourMuonEvent = true;
+            h1_isFourMuon->Fill(1);  
+          }   
+        }*/
+      }
+
+
+      if (STATUS != 3) continue; 
+      
+      if (ID == 4){
+        h1_genB_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+        h1_genB_phi->Fill(LeptonInfo.GenPart_phi[iGenPart]);
+        h1_genB_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+        if (LeptonInfo.GenPart_pt[iGenPart]>30 && fabs(LeptonInfo.GenPart_eta[iGenPart])<2.5) ++nBMult;
+        if (LeptonInfo.GenPart_pt[iGenPart]>LeadingBPt) {
+          LeadingBPt = LeptonInfo.GenPart_pt[iGenPart];
+          LeadingBIdx = iGenPart;
+        }
+      }
+
+      if (ID == 35){
+        h1_genHiggs_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+        h1_genHiggs_phi->Fill(LeptonInfo.GenPart_phi[iGenPart]);
+        h1_genHiggs_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+      }
+
+      if (ID == 24){
+        h1_genW_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+        h1_genW_phi->Fill(LeptonInfo.GenPart_phi[iGenPart]);
+        h1_genW_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+      }
+
+      if (ID == 6001113 || ID == 6001112){
+        h1_genLL_pt->Fill(LeptonInfo.GenPart_pt[iGenPart]);
+        h1_genLL_phi->Fill(LeptonInfo.GenPart_phi[iGenPart]);
+        h1_genLL_eta->Fill(LeptonInfo.GenPart_eta[iGenPart]);
+        if (LeptonInfo.GenPart_pt[iGenPart]>LeadingLLPt) {
+          LeadingLLPt = LeptonInfo.GenPart_pt[iGenPart];
+          LeadingLLIdx = iGenPart;
+        }
+      }
+    } //end loop over genparticles
+
+    if (isLLEvent){
+      for (size_t gm=0; gm<vGenMuHiggs.size(); ++gm){
+        h1_GenMuHiggs_pt->Fill(vGenMuHiggs.at(gm).Pt());
+        h1_GenMuHiggs_phi->Fill(vGenMuHiggs.at(gm).Phi());
+        h1_GenMuHiggs_eta->Fill(vGenMuHiggs.at(gm).Eta());
+      }
+    } 
+
+    for (int iPatMuon = 0; iPatMuon<LeptonInfo.nMu; ++iPatMuon){
+      TLorentzVector tmpV2;
+      bool isTightMuon = (LeptonInfo.Mu_isGlobal[iPatMuon]==1 && LeptonInfo.Mu_isPF[iPatMuon]==1 && LeptonInfo.Mu_globalTrack_normChi2[iPatMuon]<10 && LeptonInfo.Mu_nValidHits[iPatMuon] > 0 && LeptonInfo.Mu_nMatchedStations[iPatMuon] > 1 && LeptonInfo.Mu_bestTrack_dxyVertPos[iPatMuon] < 0.2 && LeptonInfo.Mu_bestTrack_dzVertPos[iPatMuon]< 0.5 && LeptonInfo.Mu_nPixelHits[iPatMuon] > 0 && LeptonInfo.Mu_nTrackLayers[iPatMuon] > 5? true: false);
+      tmpV2.SetPtEtaPhiM(LeptonInfo.Mu_pt[iPatMuon], LeptonInfo.Mu_eta[iPatMuon], LeptonInfo.Mu_phi[iPatMuon], LeptonInfo.Mu_mass[iPatMuon]);
+      if (isTightMuon) {
+        vPatMu.push_back(tmpV2);
+        vPatMuTightIdx.push_back(iPatMuon);
+      }
+    }
+
+    if (isLLEvent){
+      std::vector<bool> matchedLocks(vPatMu.size(),false);
+      std::vector<int> matchedIndices;
+      std::vector<int> vPatMuMatchedIdx;
+
+      for(size_t gm=0; gm<vGenMuHiggs.size(); ++gm) {
+        double matchedDR2 = 1e9;
+        int matchedIdx = -1;
+
+        for(size_t pm=0; pm<vPatMu.size(); ++pm) {
+          if( matchedLocks.at(pm) ) continue; // skip jets that have already been matched
+
+          double tempDR2 = reco::deltaR2( vGenMuHiggs.at(gm).Eta(), vGenMuHiggs.at(gm).Phi(), vPatMu.at(pm).Eta(), vPatMu.at(pm).Phi() );
+          if( tempDR2 < matchedDR2 ) {
+            matchedDR2 = tempDR2;
+            matchedIdx = pm;
+          }
+        }
+
+        if( matchedIdx>=0 ){
+          if ( matchedDR2 > 0.1) {
+       //     edm::LogError("MuonMatchingFailed") << "Matched Pat Muon " << matchedIdx << " and Gen Muon " << gm <<" are separated by dR=" << sqrt(matchedDR2) << " which is greater than the allwed size R=0.1.\n";
+            matchedIdx = -1;                                  
+          }
+          else {
+            matchedLocks.at(matchedIdx) = true;
+            vPatMuMatchedIdx.push_back(vPatMuTightIdx.at(matchedIdx));
+          }  
+        }
+       // else edm::LogError("MuonMatchingFailed") << "Matching Pat Muon to Gen Muons failed.";
+          
+        matchedIndices.push_back(matchedIdx);
+      }
+      int howmany = 0;
+      for (size_t mi = 0 ; mi<matchedIndices.size(); ++mi){
+        if (matchedIndices.at(mi)>=0) ++howmany;
+      //  if (LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)] > 20 && fabs(LeptonInfo.Mu_eta[vPatMuMatchedIdx.at(mi)])<2.1) hptPatMuon = true;
+      }
+      h1_matched_muons->Fill(howmany);
+
+      for (size_t mi = 0; mi<vPatMuMatchedIdx.size(); ++mi){
+        //********* n-a cuts **************
+        if (LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]>5) h1_PatTestLL_eta->Fill(LeptonInfo.Mu_eta[vPatMuMatchedIdx.at(mi)]);
+        if (fabs(LeptonInfo.Mu_eta[vPatMuMatchedIdx.at(mi)])<2.1) h1_PatTestLL_pt->Fill(LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        if (LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]>20 && fabs(LeptonInfo.Mu_eta[vPatMuMatchedIdx.at(mi)])<2.4) hptPatMuon = true;
+      } 
+
+      if (howmany==4 && hptPatMuon) {
+
+        h1_isFourMatchedMuon->Fill(1); 
+
+        for (size_t mi = 0; mi<vPatMuMatchedIdx.size(); ++mi){
+          h1_matched_HiggsMuonIP3D->Fill(LeptonInfo.Mu_IP3D[vPatMuMatchedIdx.at(mi)]);
+          h1_matched_HiggsMuonIP3Derror->Fill(LeptonInfo.Mu_IP3Der[vPatMuMatchedIdx.at(mi)]);
+          h1_matched_HiggsMuonIP3Dsig->Fill(LeptonInfo.Mu_IP3D[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_IP3Der[vPatMuMatchedIdx.at(mi)]);
+          h1_matched_HiggsMuonIP2D->Fill(LeptonInfo.Mu_IP2D[vPatMuMatchedIdx.at(mi)]);
+          h1_matched_HiggsMuonIP2Derror->Fill(LeptonInfo.Mu_IP2Der[vPatMuMatchedIdx.at(mi)]);
+          h1_matched_HiggsMuonIP2Dsig->Fill(LeptonInfo.Mu_IP2D[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_IP2Der[vPatMuMatchedIdx.at(mi)]);
+          
+          h1_MuHiggs_trkIso->Fill(LeptonInfo.Mu_trkIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_trackerIsoSumPT->Fill(LeptonInfo.Mu_trackerIsoSumPT[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_ecalIso->Fill(LeptonInfo.Mu_ecalIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_hcalIso->Fill(LeptonInfo.Mu_hcalIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_hoIso->Fill(LeptonInfo.Mu_hoIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_ecalVetoIso->Fill(LeptonInfo.Mu_ecalVetoIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_hcalVetoIso->Fill(LeptonInfo.Mu_hcalVetoIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03chargedhadron->Fill(LeptonInfo.Mu_pfisor03chargedhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03chargedparticle->Fill(LeptonInfo.Mu_pfisor03chargedparticle[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03neutralhadron->Fill(LeptonInfo.Mu_pfisor03neutralhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03photon->Fill(LeptonInfo.Mu_pfisor03photon[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03neutralhadronht->Fill(LeptonInfo.Mu_pfisor03neutralhadronht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03photonht->Fill(LeptonInfo.Mu_pfisor03photonht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor03pu->Fill(LeptonInfo.Mu_pfisor03pu[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04chargedhadron->Fill(LeptonInfo.Mu_pfisor04chargedhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04chargedparticle->Fill(LeptonInfo.Mu_pfisor04chargedparticle[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04neutralhadron->Fill(LeptonInfo.Mu_pfisor04neutralhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04photon->Fill(LeptonInfo.Mu_pfisor04photon[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04neutralhadronht->Fill(LeptonInfo.Mu_pfisor04neutralhadronht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04photonht->Fill(LeptonInfo.Mu_pfisor04photonht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_MuHiggs_pfisor04pu->Fill(LeptonInfo.Mu_pfisor04pu[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+
+          h1_PatMuHiggs_pt->Fill(LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+          h1_PatMuHiggs_phi->Fill(LeptonInfo.Mu_phi[vPatMuMatchedIdx.at(mi)]);
+          h1_PatMuHiggs_eta->Fill(LeptonInfo.Mu_eta[vPatMuMatchedIdx.at(mi)]);
+        }
+      }
+      
+    } 
+    
+    if (isMuWEvent){
+      std::vector<bool> matchedLocks(vPatMu.size(),false);
+      std::vector<int> matchedIndices;
+      std::vector< int > vPatMuMatchedIdx;
+
+      for(size_t gm=0; gm<vGenMuW.size(); ++gm) {
+        double matchedDR2 = 1e9;
+        int matchedIdx = -1;
+
+        for(size_t pm=0; pm<vPatMu.size(); ++pm) {
+          if( matchedLocks.at(pm) ) continue; // skip jets that have already been matched
+
+          double tempDR2 = reco::deltaR2( vGenMuW.at(gm).Eta(), vGenMuW.at(gm).Phi(), vPatMu.at(pm).Eta(), vPatMu.at(pm).Phi() );
+          if( tempDR2 < matchedDR2 ) {
+            matchedDR2 = tempDR2;
+            matchedIdx = pm;
+          }
+        }
+
+        if( matchedIdx>=0 ){
+          if ( matchedDR2 > 0.1) {
+         //   edm::LogError("MuonMatchingFailed") << "Matched Pat Muon " << matchedIdx << " and Gen Muon " << gm <<" are separated by dR=" << sqrt(matchedDR2) << " which is greater than the allwed size R=0.1.\n";
+            matchedIdx = -1;                                  
+          }
+          else {
+            matchedLocks.at(matchedIdx) = true;
+            vPatMuMatchedIdx.push_back(vPatMuTightIdx.at(matchedIdx));
+          }
+
+        }
+      //  else edm::LogError("MuonMatchingFailed") << "Matching Pat Muon to Gen Muons failed.";
+          
+        matchedIndices.push_back(matchedIdx);
+        
+      }
+      int howmany = 0;
+      for (size_t mi = 0 ; mi<matchedIndices.size(); ++mi){
+        if (matchedIndices.at(mi)>=0) ++howmany;
+      }
+      
+      if (howmany!= 0) h1_matched_WMuons->Fill(howmany);
+
+      for (size_t mi = 0; mi<vPatMuMatchedIdx.size(); ++mi){
+        h1_matched_WMuonIP3D->Fill(LeptonInfo.Mu_IP3D[vPatMuMatchedIdx.at(mi)]);
+        h1_matched_WMuonIP3Derror->Fill(LeptonInfo.Mu_IP3Der[vPatMuMatchedIdx.at(mi)]);
+        h1_matched_WMuonIP3Dsig->Fill(LeptonInfo.Mu_IP3D[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_IP3Der[vPatMuMatchedIdx.at(mi)]);
+        h1_matched_WMuonIP2D->Fill(LeptonInfo.Mu_IP2D[vPatMuMatchedIdx.at(mi)]);
+        h1_matched_WMuonIP2Derror->Fill(LeptonInfo.Mu_IP2Der[vPatMuMatchedIdx.at(mi)]);
+        h1_matched_WMuonIP2Dsig->Fill(LeptonInfo.Mu_IP2D[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_IP2Der[vPatMuMatchedIdx.at(mi)]);
+
+        h1_MuW_trkIso->Fill(LeptonInfo.Mu_trkIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_trackerIsoSumPT->Fill(LeptonInfo.Mu_trackerIsoSumPT[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_ecalIso->Fill(LeptonInfo.Mu_ecalIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_hcalIso->Fill(LeptonInfo.Mu_hcalIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_hoIso->Fill(LeptonInfo.Mu_hoIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_ecalVetoIso->Fill(LeptonInfo.Mu_ecalVetoIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_hcalVetoIso->Fill(LeptonInfo.Mu_hcalVetoIso[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03chargedhadron->Fill(LeptonInfo.Mu_pfisor03chargedhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03chargedparticle->Fill(LeptonInfo.Mu_pfisor03chargedparticle[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03neutralhadron->Fill(LeptonInfo.Mu_pfisor03neutralhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03photon->Fill(LeptonInfo.Mu_pfisor03photon[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03neutralhadronht->Fill(LeptonInfo.Mu_pfisor03neutralhadronht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03photonht->Fill(LeptonInfo.Mu_pfisor03photonht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor03pu->Fill(LeptonInfo.Mu_pfisor03pu[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04chargedhadron->Fill(LeptonInfo.Mu_pfisor04chargedhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04chargedparticle->Fill(LeptonInfo.Mu_pfisor04chargedparticle[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04neutralhadron->Fill(LeptonInfo.Mu_pfisor04neutralhadron[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04photon->Fill(LeptonInfo.Mu_pfisor04photon[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04neutralhadronht->Fill(LeptonInfo.Mu_pfisor04neutralhadronht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04photonht->Fill(LeptonInfo.Mu_pfisor04photonht[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_MuW_pfisor04pu->Fill(LeptonInfo.Mu_pfisor04pu[vPatMuMatchedIdx.at(mi)]/LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+
+        h1_PatMuW_pt->Fill(LeptonInfo.Mu_pt[vPatMuMatchedIdx.at(mi)]);
+        h1_PatMuW_phi->Fill(LeptonInfo.Mu_phi[vPatMuMatchedIdx.at(mi)]);
+        h1_PatMuW_eta->Fill(LeptonInfo.Mu_eta[vPatMuMatchedIdx.at(mi)]);
+
+
+      } 
+    }
+
+
+
+
+    // Fill Leading GenParticle Histos 
+    if (LeadingLLIdx != -1){
+      float LLr = sqrt(LeptonInfo.GenPart_vertX[LeadingLLIdx]*LeptonInfo.GenPart_vertX[LeadingLLIdx] + LeptonInfo.GenPart_vertY[LeadingLLIdx]*LeptonInfo.GenPart_vertY[LeadingLLIdx]);
+      h2_LL_vert_rZ->Fill(LLr, LeptonInfo.GenPart_vertZ[LeadingLLIdx]);
+    
+      float LLphi = atan2(LeptonInfo.GenPart_vertX[LeadingLLIdx], LeptonInfo.GenPart_vertY[LeadingLLIdx]);
+      h2_LL_vert_rPhi->Fill(LLr, LLphi);
+    }
+    
+    if (LeadingBIdx != -1){  
+      float Br = sqrt(LeptonInfo.GenPart_vertX[LeadingBIdx]*LeptonInfo.GenPart_vertX[LeadingBIdx] + LeptonInfo.GenPart_vertY[LeadingBIdx]*LeptonInfo.GenPart_vertY[LeadingBIdx]);
+      h2_b_vert_rZ->Fill(Br, LeptonInfo.GenPart_vertZ[LeadingBIdx]);
+
+      float Bphi = atan2(LeptonInfo.GenPart_vertX[LeadingBIdx], LeptonInfo.GenPart_vertY[LeadingBIdx]);
+      h2_b_vert_rPhi->Fill(Br, Bphi);
+    }
+
+    if (LeadingMuIdx != -1 && LeptonInfo.GenPart_pdgid[LeptonInfo.GenPart_mother[LeadingMuIdx]]==6001113){
+      float Mur = sqrt((LeptonInfo.GenPart_vertX[LeadingMuIdx]*LeptonInfo.GenPart_vertX[LeadingMuIdx]) + (LeptonInfo.GenPart_vertY[LeadingMuIdx]*LeptonInfo.GenPart_vertY[LeadingMuIdx]));
+      h2_mu_vert_rZ->Fill(Mur, LeptonInfo.GenPart_vertZ[LeadingMuIdx]);
+
+      float Muphi = atan2(LeptonInfo.GenPart_vertX[LeadingMuIdx], LeptonInfo.GenPart_vertY[LeadingMuIdx]);
+      h2_mu_vert_rPhi->Fill(Mur, Muphi);
+    }
+
+    //Fill Multiplicity Histos 
+    h1_b_HighPt_LowEta->Fill(nBMult);
+    h1_bJet_Mult->Fill(nBJetMult);
+    if (LeadingBJetPt !=0) h1_bJet_LeadingPt->Fill(LeadingBJetPt);
+    h1_genMu_mult->Fill(nGenMuMult);
+
 
     // fill jet multiplicity
-    h1_nFatJet->Fill(nFatJet, wtPU);
-    if( processSubJets_ ) h1_nSubJet->Fill(nSubJet, wtPU);
+ //   h1_nFatJet->Fill(nFatJet, wtPU);
+ //   if( processSubJets_ ) h1_nSubJet->Fill(nSubJet, wtPU);
   }
   //----------------------------- End event loop ----------------------------------------//
 }
 
 // ------------------------------------------------------------------------------
-void BTagValidation::fillJetHistos(const JetInfoBranches& JetInfo, const int iJet, const bool isGluonSplit, const TString& histoTag,
+/*void BTagValidation::fillJetHistos(const JetInfoBranches& JetInfo, const int iJet, const bool isGluonSplit, const TString& histoTag,
                                    const int nmu, const int nselmuon, const int idxFirstMuon, const double wt) {
 
   float ptjet      = JetInfo.Jet_pt[iJet];
@@ -1243,14 +1941,15 @@ void BTagValidation::fillJetHistos(const JetInfoBranches& JetInfo, const int iJe
     FillHisto2D(histoTag+"_muon_DeltaR_vs_jetpt",flav, isGluonSplit,ptjet,themuon.DeltaR(thejet),wt);
   }
 }
+*/
 
 // ------------ method called once each job just after ending the event loop  ------------
 void BTagValidation::endJob() {
 
-  h1_CutFlow->SetBinContent(1, nEventsAll); //// strictly speaking not correct since event weights not applied
+/*  h1_CutFlow->SetBinContent(1, nEventsAll); //// strictly speaking not correct since event weights not applied
   h1_CutFlow->SetBinContent(2, nEventsStored); //// strictly speaking not correct since event weights not applied
   h1_CutFlow_unw->SetBinContent(1, nEventsAll);
-  h1_CutFlow_unw->SetBinContent(2, nEventsStored);
+  h1_CutFlow_unw->SetBinContent(2, nEventsStored); */
 }
 
 // ------------ method called when starting to processes a run  ------------
@@ -1351,7 +2050,7 @@ void BTagValidation::AddHisto2D(const TString& name, const TString& title, const
 
   TH2D* h_data= fs->make<TH2D>(name+"_data",title+"_data",nbins,min,max,nbins2,min2,max2);
   h_data->Sumw2();
-  HistoBtag2D_map[name+"_data"] = h_data;
+  HistoBtag2D_map[name+"_data"] = h_data;  
 }
 
 // ------------------------------------------------------------------------------
@@ -1375,7 +2074,7 @@ void BTagValidation::FillHisto(const TString& name, const int flavour, const boo
       HistoBtag_map[name+"_mc"]->Fill(double(value),weight);
   }
   else
-    HistoBtag_map[name+"_data"]->Fill(double(value));
+    HistoBtag_map[name+"_data"]->Fill(double(value)); 
 }
 
 // ------------------------------------------------------------------------------
@@ -1399,7 +2098,7 @@ void BTagValidation::FillHisto2D(const TString& name, const int flavour, const b
       HistoBtag2D_map[name+"_mc"]->Fill(double(value),double(value2),weight);
   }
   else
-    HistoBtag2D_map[name+"_data"]->Fill(double(value),double(value2));
+    HistoBtag2D_map[name+"_data"]->Fill(double(value),double(value2)); 
 }
 
 // ------------------------------------------------------------------------------

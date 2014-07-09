@@ -121,7 +121,7 @@ options.register('doPUReweighting', False,
 )
 
 ## 'maxEvents' is already registered by the Framework, changing default value
-options.setDefault('maxEvents', 1000)
+options.setDefault('maxEvents', 100)
 
 options.parseArguments()
 
@@ -148,10 +148,10 @@ process.btagval = cms.EDAnalyzer('BTagValidation',
     MaxEvents              = cms.int32(options.maxEvents),
     ReportEvery            = cms.int32(options.reportEvery),
     UseJetProbaTree        = cms.bool(options.useJetProbaTree),
-    InputTTree             = cms.string('btaganaSubJets/ttree'),
+    InputTTree             = cms.string('btagana/ttree'),
     InputFiles             = cms.vstring(FileNames),
     UseFlavorCategories    = cms.bool(options.useFlavorCategories),
-    UseRelaxedMuonID      = cms.bool(options.useRelaxedMuonID),
+    UseRelaxedMuonID       = cms.bool(options.useRelaxedMuonID),
     ApplyFatJetMuonTagging = cms.bool(options.applyFatJetMuonTagging),
     ApplyFatJetBTagging    = cms.bool(options.applyFatJetBTagging),
     FatJetDoubleTagging    = cms.bool(options.fatJetDoubleTagging),
